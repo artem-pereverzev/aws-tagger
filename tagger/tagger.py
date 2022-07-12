@@ -1145,7 +1145,7 @@ class SagemakerTagger(object):
                     print("Resource not found: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
                     print("Access to resource denied: %s\n" % resource_arn)
-                else
+                else:
                     raise exception
 
     @retry(retry_on_exception=_is_retryable_exception, stop_max_delay=30000, wait_exponential_multiplier=1000)
