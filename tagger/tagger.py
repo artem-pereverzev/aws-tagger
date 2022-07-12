@@ -277,6 +277,8 @@ class EC2Tagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['InvalidSnapshot.NotFound', 'InvalidVolume.NotFound', 'InvalidInstanceID.NotFound', 'InvalidVpcEndpointId.NotFound', 'InvalidGroup.NotFound']:
                     print("Resource not found: %s\n" % instance_id)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -307,6 +309,8 @@ class EFSTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['FileSystemNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -330,6 +334,8 @@ class DynamoDBTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -353,6 +359,8 @@ class LambdaTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['ValidationException']:
                     print("Validation error on resource: %s\n" % resource_arn)
                 else:
@@ -387,6 +395,8 @@ class CloudWatchLogsTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -411,6 +421,8 @@ class RDSTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['DBInstanceNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -440,6 +452,8 @@ class LBTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['LoadBalancerNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -467,6 +481,8 @@ class KinesisTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -490,6 +506,8 @@ class ESTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ValidationException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -513,6 +531,8 @@ class ElasticacheTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['CacheClusterNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -536,6 +556,8 @@ class CloudfrontTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['NoSuchResource']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -661,6 +683,8 @@ class RedshiftTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundFault']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['TagLimitExceededFault']:
                     print("You have exceeded the number of tags allowed: %s\n" % resource_arn)
                 else:
@@ -687,6 +711,8 @@ class SNSTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['TagLimitExceeded']:
                     print("Can't add more than 50 tags to a topic: %s\n" % resource_arn)
                 else:
@@ -713,6 +739,8 @@ class WAFv2Tagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['WAFNonexistentItemException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -736,6 +764,8 @@ class AirflowTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -760,6 +790,8 @@ class ECRTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['RepositoryNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['TooManyTagsException']:
                     print("The list of tags on the repository is over the limit: %s\n" % resource_arn)
                 else:
@@ -786,6 +818,8 @@ class ECSTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException', 'ClusterNotFoundException', 'InvalidParameterException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -809,6 +843,8 @@ class LocationTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['NoSuchResource']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -884,6 +920,8 @@ class AthenaTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -909,6 +947,8 @@ class CodebuildTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -933,6 +973,8 @@ class CodepipelineTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['TooManyTagsException']:
                     print("The tags limit for a resource has been exceeded: %s\n" % resource_arn)
                 else:
@@ -959,6 +1001,8 @@ class CognitoIdpTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -985,6 +1029,8 @@ class Route53Tagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException', 'ResourceNotFound', 'NoSuchResource']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['NoSuchHostedZone']:
                     print("No hosted zone exists with the ID that you specified. %s\n" % resource_id)
                 else:
@@ -1011,6 +1057,8 @@ class SecretsmanagerTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -1037,6 +1085,8 @@ class SQSTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -1066,6 +1116,8 @@ class StatesTagger(object):
                     print("Resource not found: %s\n" % resource_arn)
                 elif exception.response["Error"]["Code"] in ['TooManyTags']:
                     print("You've exceeded the number of tags allowed for a resource: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
@@ -1091,7 +1143,9 @@ class SagemakerTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['ResourceNotFound']:
                     print("Resource not found: %s\n" % resource_arn)
-                else:
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
+                else
                     raise exception
 
     @retry(retry_on_exception=_is_retryable_exception, stop_max_delay=30000, wait_exponential_multiplier=1000)
