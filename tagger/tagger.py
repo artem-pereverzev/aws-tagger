@@ -89,9 +89,9 @@ class SingleResourceTagger(object):
         self.taggers['codebuild'] = CodebuildTagger(dryrun, verbose, role=role, region=region)
         self.taggers['codepipeline'] = CodepipelineTagger(dryrun, verbose, role=role, region=region)
         self.taggers['cognito-idp'] = CognitoIdpTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['dynamodb'] = DynamoDBTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['ec2'] = EC2Tagger(dryrun, verbose, role=role, region=region, tag_volumes=tag_volumes)
         self.taggers['ecr'] = ECRTagger(dryrun, verbose, role=role, region=region)
         self.taggers['ecs'] = ECSTagger(dryrun, verbose, role=role, region=region)
@@ -99,21 +99,21 @@ class SingleResourceTagger(object):
         self.taggers['elasticfilesystem'] = EFSTagger(dryrun, verbose, role=role, region=region)
         self.taggers['elasticloadbalancing'] = LBTagger(dryrun, verbose, role=role, region=region)
         self.taggers['es'] = ESTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['geo'] = LocationTagger(dryrun, verbose, role=role, region=region)
         self.taggers['glue'] = GlueTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['kinesis'] = KinesisTagger(dryrun, verbose, role=role, region=region)
         self.taggers['kms'] = KMSTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['lambda'] = LambdaTagger(dryrun, verbose, role=role, region=region)
         self.taggers['logs'] = CloudWatchLogsTagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['r53resolver'] = R53ResolverTagger(dryrun, verbose, role=role, region=region)
         self.taggers['redshift'] = RedshiftTagger(dryrun, verbose, role=role, region=region)
         self.taggers['rds'] = RDSTagger(dryrun, verbose, role=role, region=region)
         self.taggers['route53'] = Route53Tagger(dryrun, verbose, role=role, region=region)
- 
+
         self.taggers['s3'] = S3Tagger(dryrun, verbose, role=role, region=region)
         self.taggers['sagemaker'] = SagemakerTagger(dryrun, verbose, role=role, region=region)
         self.taggers['secretsmanager'] = SecretsmanagerTagger(dryrun, verbose, role=role, region=region)
@@ -122,8 +122,8 @@ class SingleResourceTagger(object):
         self.taggers['states'] = StatesTagger(dryrun, verbose, role=role, region=region)
 
         self.taggers['wafv2'] = WAFv2Tagger(dryrun, verbose, role=role, region=region)
-        
-        
+
+
     def tag(self, resource_id, tags):
         if resource_id == "":
             return
@@ -275,7 +275,7 @@ class EC2Tagger(object):
             try:
                 self._ec2_create_tags(Resources=resource_ids, Tags=aws_tags)
             except botocore.exceptions.ClientError as exception:
-                if exception.response["Error"]["Code"] in ['InvalidSnapshot.NotFound', 'InvalidVolume.NotFound', 'InvalidInstanceID.NotFound', 'InvalidVpcEndpointId.NotFound']:
+                if exception.response["Error"]["Code"] in ['InvalidSnapshot.NotFound', 'InvalidVolume.NotFound', 'InvalidInstanceID.NotFound', 'InvalidVpcEndpointId.NotFound', 'InvalidGroup.NotFound']:
                     print("Resource not found: %s\n" % instance_id)
                 else:
                     raise exception
