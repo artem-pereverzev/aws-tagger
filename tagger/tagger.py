@@ -832,6 +832,8 @@ class GlueTagger(object):
             except botocore.exceptions.ClientError as exception:
                 if exception.response["Error"]["Code"] in ['EntityNotFoundException']:
                     print("Resource not found: %s\n" % resource_arn)
+                elif exception.response["Error"]["Code"] in ['AccessDeniedException']:
+                    print("Access to resource denied: %s\n" % resource_arn)
                 else:
                     raise exception
 
